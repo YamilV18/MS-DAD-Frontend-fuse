@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {abcForms} from '../../../../../../../environments/generals';
-import {Client} from '../../models/client';
+import {Category} from '../../models/category';
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
@@ -10,7 +10,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-client-edit',
+  selector: 'app-category-edit',
   standalone: true,
   imports: [FormsModule,
     MatIconModule,
@@ -31,22 +31,18 @@ import {MatDialogRef} from "@angular/material/dialog";
       </div>
 
       <!-- Compose form -->
-        <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="clientForm">
+        <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="categoryForm">
             <mat-form-field>
                 <mat-label>Nombre</mat-label>
                 <input matInput formControlName="name" />
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Apellidos</mat-label>
-                <input matInput formControlName="lastname" />
+                <mat-label>Descripción</mat-label>
+                <input matInput formControlName="description" />
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Correo</mat-label>
-                <input matInput formControlName="email" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Telefono</mat-label>
-                <input matInput formControlName="phone" />
+                <mat-label>Código</mat-label>
+                <input matInput formControlName="code" />
             </mat-form-field>
             <!-- Actions -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
@@ -61,35 +57,35 @@ import {MatDialogRef} from "@angular/material/dialog";
     </div>
   `
 })
-export class ClientEditComponent implements OnInit {
-    clientForm = new FormGroup({
+export class CategoryEditComponent implements OnInit {
+    categoryForm = new FormGroup({
+
         name: new FormControl('', [Validators.required]),
-        lastname: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required]),
-        phone: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+        code: new FormControl('', [Validators.required]),
     });
   @Input() title: string = '';
-  @Input() client = new Client();
+  @Input() category = new Category();
   abcForms: any;
 
   constructor(
       private formBuilder: FormBuilder,
-      private _matDialog: MatDialogRef<ClientEditComponent>,
+      private _matDialog: MatDialogRef<CategoryEditComponent>,
   ) {
   }
 
   ngOnInit() {
     this.abcForms = abcForms;
 
-    if (this.client) {
-        console.log(this.client);
-      this.clientForm.patchValue(this.client);
+    if (this.category) {
+        console.log(this.category);
+      this.categoryForm.patchValue(this.category);
     }
   }
 
   public saveForm(): void {
-    if (this.clientForm.valid) {
-      this._matDialog.close(this.clientForm.value);
+    if (this.categoryForm.valid) {
+      this._matDialog.close(this.categoryForm.value);
     }
   }
 

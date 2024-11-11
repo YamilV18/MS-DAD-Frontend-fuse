@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-    selector: 'app-clients-new',
+    selector: 'app-categories-new',
     standalone: true,
     imports: [
         FormsModule,
@@ -42,22 +42,18 @@ import { MatInputModule } from '@angular/material/input';
 
 
             <!-- Compose form -->
-            <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="clientForm">
+            <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="categoryForm">
                 <mat-form-field>
                     <mat-label>Nombre</mat-label>
                     <input matInput formControlName="name" />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Apellidos</mat-label>
-                    <input matInput formControlName="lastname" />
+                    <mat-label>Descripción</mat-label>
+                    <input matInput formControlName="description" />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Correo</mat-label>
-                    <input matInput formControlName="email" />
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Telefono</mat-label>
-                    <input matInput formControlName="phone" />
+                    <mat-label>Código</mat-label>
+                    <input matInput formControlName="code" />
                 </mat-form-field>
                 <!-- Actions -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
@@ -72,25 +68,25 @@ import { MatInputModule } from '@angular/material/input';
         </div>
     `,
 })
-export class ClientNewComponent implements OnInit {
+export class CategoryNewComponent implements OnInit {
     @Input() title: string = '';
     abcForms: any;
-    clientForm = new FormGroup({
+    categoryForm = new FormGroup({
+
         name: new FormControl('', [Validators.required]),
-        lastname: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required]),
-        phone: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+        code: new FormControl('', [Validators.required]),
     });
 
-    constructor(private _matDialog: MatDialogRef<ClientNewComponent>) {}
+    constructor(private _matDialog: MatDialogRef<CategoryNewComponent>) {}
 
     ngOnInit() {
         this.abcForms = abcForms;
     }
 
     public saveForm(): void {
-        if (this.clientForm.valid) {
-            this._matDialog.close(this.clientForm.value);
+        if (this.categoryForm.valid) {
+            this._matDialog.close(this.categoryForm.value);
         }
     }
 
